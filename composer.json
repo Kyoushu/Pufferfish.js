@@ -1,0 +1,12 @@
+{
+    "name":         "kyoushu/pufferfish.js",
+    "description":  "Container size based responsive image loader",
+    "keywords":     ["responsive", "loader"],
+    "license":      "GPL-2.0+",
+    "authors":     [
+        {
+            "name":     "James Willans",
+            "email":    "kyoushu@gmail.com"
+        }
+    ]
+}
