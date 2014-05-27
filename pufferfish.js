@@ -1,15 +1,19 @@
 (function($, window, document, undefined){
     
-    $.fn.pufferfish = function(){
-        
-        var namespace = 'pufferfish';
+    var namespace = 'pufferfish';
+    
+    var pufferfish = (function(){
         
         var sizeDefinitionRegex =       /\[([^,]+)(\s+)?,(\s+)?\(([^\)]+)\)(\s+)?\]/;
         var sizeDefinitionRegexGlobal = /\[([^,]+)(\s+)?,(\s+)?\(([^\)]+)\)(\s+)?\]/g;
-        var constraintRegex =       /([^:]+):(\s+)?([^,]+)/;
-        var constraintRegexGlobal = /([^:]+):(\s+)?([^,]+)/g;
+        var constraintRegex =       /([^,\s:]+):(\s+)?([^,]+)/;
+        var constraintRegexGlobal = /([^,\s:]+):(\s+)?([^,]+)/g;
         
         var watchedImages = [];
+        
+        function getWatchedImages(){
+            return watchedImages;
+        }
         
         function getDataAttrKey(name){
             return 'data-' + namespace + (typeof name !== 'undefined' ? '-' + name : '');
@@ -62,21 +66,14 @@
             var sizeDefString = img.attr( getDataAttrKey() );
             var sizeDefinitions = parseSizeDefinitions(sizeDefString);
             
+            img.data( getDataAttrKey('watched'), true );
+            
             watchedImages.push({
                 'img': img,
-                'sizeDefinitions': sizeDefinitions
+                'sizeDefinitions': sizeDefinitions,
+                'currentSrc': null
             });
         
-        }
-        
-        var delayedReflowTimeout;
-        var delayedReflowDelay = 100;
-        
-        function delayedReflow(){
-            clearTimeout(delayedReflowTimeout);
-            delayedReflowTimeout = setTimeout(function(){
-                reflow();
-            }, delayedReflowDelay);
         }
         
         function reflow(){
@@ -91,7 +88,7 @@
                 var selectedSizeDefinition = null;
                 
                 $.each(sizeDefinitions, function(key, sizeDefinition){
-                   
+                    
                     if(
                         sizeDefinition.constraints['min-width'] !== null &&
                         availableWidth < sizeDefinition.constraints['min-width']
@@ -111,7 +108,8 @@
                     
                 });
                 
-                if(selectedSizeDefinition !== null){
+                if(selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src){
+                    watchedImage.currentSrc = selectedSizeDefinition.src;
                     img.attr('src', selectedSizeDefinition.src);
                 }
             
@@ -119,15 +117,37 @@
             
         }
         
-        $(this).find( 'img' + getDataAttrSelector() ).each(function(){
-            var img = $(this);
-            watchImage(img);
+        function bindUnwatched(context){
+            if(typeof context === 'undefined') context = document;
+            $(context).find( 'img' + getDataAttrSelector() ).each(function(){
+                var img = $(this);
+                if(img.data( getDataAttrKey('watched') )) return;
+                watchImage(img);
+            });
+        }
+        
+        function init(context){
+            if(typeof context === 'undefined') context = document;
+            bindUnwatched(context);
+            reflow();
+        }
+        
+        // Public methods
+        return {
+            'init': init,
+            'reflow': reflow,
+            'getWatchedImages': getWatchedImages
+        };
+        
+    })();
+    
+    window[namespace] = pufferfish;
+    
+    $.fn[namespace] = function(){
+        window[namespace].init(this);
+        $(window).on('resize', function(){
+            window[namespace].reflow(); 
         });
-        
-        $(window).on('resize', reflow);
-        
-        reflow();
-        
     };
     
 })(jQuery, window, window.document);
