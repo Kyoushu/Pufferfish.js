@@ -66,11 +66,15 @@
             var sizeDefString = img.attr( getDataAttrKey() );
             var sizeDefinitions = parseSizeDefinitions(sizeDefString);
             
+            var srcAttr = img.attr( getDataAttrKey('src-attr') );
+            if(!srcAttr) srcAttr = 'src';
+            
             img.data( getDataAttrKey('watched'), true );
             
             watchedImages.push({
                 'img': img,
                 'sizeDefinitions': sizeDefinitions,
+                'srcAttr': srcAttr,
                 'currentSrc': null
             });
         
@@ -110,7 +114,7 @@
                 
                 if(selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src){
                     watchedImage.currentSrc = selectedSizeDefinition.src;
-                    img.attr('src', selectedSizeDefinition.src);
+                    img.attr(watchedImage.srcAttr, selectedSizeDefinition.src);
                 }
             
             });
@@ -119,7 +123,7 @@
         
         function bindUnwatched(context){
             if(typeof context === 'undefined') context = document;
-            $(context).find( 'img' + getDataAttrSelector() ).each(function(){
+            $(context).find( getDataAttrSelector() ).each(function(){
                 var img = $(this);
                 if(img.data( getDataAttrKey('watched') )) return;
                 watchImage(img);

@@ -31,6 +31,10 @@ Force Pufferfish to re-calculate image sources using current container dimension
         <img data-pufferfish="[http://placehold.it/640x480, (max-width: 640)], [http://placehold.it/1200x500, (min-width: 641)]" />
     </div>
 
+    <div class="container">
+        <video src="video.mp4" data-pufferfish-src-attr="poster" data-pufferfish="[http://placehold.it/640x480, (max-width: 640)], [http://placehold.it/1200x500, (min-width: 641)]" />
+    </div>
+
     <script src="js/jquery.js"></script>
     <script src="js/pufferfish.js"></script>
 
