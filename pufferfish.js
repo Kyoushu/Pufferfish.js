@@ -135,18 +135,17 @@
         // Public methods
         return {
             'init': init,
-            'reflow': reflow,
-            'getWatchedImages': getWatchedImages
+            'reflow': reflow
         };
         
     })();
     
-    window[namespace] = pufferfish;
+    $[namespace] = pufferfish;
     
     $.fn[namespace] = function(){
-        window[namespace].init(this);
+        $[namespace].init(this);
         $(window).on('resize', function(){
-            window[namespace].reflow(); 
+            $[namespace].reflow(); 
         });
     };
     

@@ -4,6 +4,16 @@ Loads images based on the amount of space available in the image's containing el
 
 This is still very much a proof of concept, so don't use it for anything important.
 
+## Public Methods
+
+### $.pufferfish.init()
+
+Initialises images which have been added to a page asynchronously.
+
+### $.pufferfish.reflow()
+
+Force Pufferfish to re-calculate image sources using current container dimensions.
+
 ## Usage Example
 
     <style>
