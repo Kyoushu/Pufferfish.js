@@ -1,22 +1,37 @@
 (function($, window, document, undefined){
     
-    var namespace = 'pufferfish';
-    
-    var pufferfish = (function(){
-        
+    var PufferfishImageChangeEvent = function(element, newImageSrc, oldImageSrc){
+        this.element = element;
+        this.newImageSrc = newImageSrc;
+        this.oldImageSrc = oldImageSrc;
+    }
+
+    PufferfishImageChangeEvent.prototype.element = null;
+    PufferfishImageChangeEvent.prototype.newImageSrc = null;
+    PufferfishImageChangeEvent.prototype.oldImageSrc = null;
+    PufferfishImageChangeEvent.prototype.isDefaultPrevented = false;
+
+    PufferfishImageChangeEvent.prototype.preventDefault = function(){
+        this.isDefaultPrevented = true;
+    }
+
+    var defaults = {
+        'onChange': function(element, newImageSrc, oldImageSrc){}
+    };
+
+    $.pufferfish = (function(){
+
+        var settings = $.extend({}, defaults);
+
         var sizeDefinitionRegex =       /\[([^,]+)(\s+)?,(\s+)?\(([^\)]+)\)(\s+)?\]/;
         var sizeDefinitionRegexGlobal = /\[([^,]+)(\s+)?,(\s+)?\(([^\)]+)\)(\s+)?\]/g;
         var constraintRegex =       /([^,\s:]+):(\s+)?([^,]+)/;
         var constraintRegexGlobal = /([^,\s:]+):(\s+)?([^,]+)/g;
         
         var watchedImages = [];
-        
-        function getWatchedImages(){
-            return watchedImages;
-        }
-        
+
         function getDataAttrKey(name){
-            return 'data-' + namespace + (typeof name !== 'undefined' ? '-' + name : '');
+            return 'data-pufferfish' + (typeof name !== 'undefined' ? '-' + name : '');
         }
         
         function getDataAttrSelector(name){
@@ -113,8 +128,19 @@
                 });
                 
                 if(selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src){
-                    watchedImage.currentSrc = selectedSizeDefinition.src;
-                    img.attr(watchedImage.srcAttr, selectedSizeDefinition.src);
+
+                    var oldImageSrc = watchedImage.currentSrc;
+                    var newImageSrc = selectedSizeDefinition.src;
+
+                    watchedImage.currentSrc = newImageSrc;
+
+                    var event = new PufferfishImageChangeEvent(img, newImageSrc, oldImageSrc);
+                    settings.onChange(event);
+
+                    if(!event.isDefaultPrevented){
+                        img.attr(watchedImage.srcAttr, newImageSrc);
+                    }
+
                 }
             
             });
@@ -130,7 +156,8 @@
             });
         }
         
-        function init(context){
+        function init(context, _settings){
+            settings = $.extend({}, defaults, _settings);
             if(typeof context === 'undefined') context = document;
             bindUnwatched(context);
             reflow();
@@ -143,14 +170,12 @@
         };
         
     })();
-    
-    $[namespace] = pufferfish;
-    
-    $.fn[namespace] = function(){
-        $[namespace].init(this);
+
+    $.fn.pufferfish = function(settings){
+        $.pufferfish.init(this, settings);
         $(window).on('resize', function(){
-            $[namespace].reflow(); 
+            $.pufferfish.reflow();
         });
     };
     
-})(jQuery, window, window.document);
+})( jQuery, window, window.document);
