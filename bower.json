@@ -1,15 +1,12 @@
 {
   "name": "Pufferfish.js",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "homepage": "https://github.com/Kyoushu/Pufferfish.js",
   "authors": [
-    "Kyoushu <kyoushu:gmail.com>"
+    "Kyoushu <kyoushu@gmail.com>"
   ],
   "description": "Container size based responsive image loader",
   "main": "pufferfish.js",
-  "moduleType": [
-    "globals"
-  ],
   "keywords": [
     "responsive",
     "loader"
@@ -18,7 +15,6 @@
     "jquery": "~2.0.0"
   },
   "license": "GPL v2",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
