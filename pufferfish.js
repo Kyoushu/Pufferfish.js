@@ -117,7 +117,7 @@
                     
                     if(
                         sizeDefinition.constraints['max-width'] !== null &&
-                        availableWidth >= sizeDefinition.constraints['max-width']
+                        availableWidth > sizeDefinition.constraints['max-width']
                     ){
                         return;
                     }
