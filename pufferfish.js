@@ -4,7 +4,7 @@
         this.element = element;
         this.newImageSrc = newImageSrc;
         this.oldImageSrc = oldImageSrc;
-    }
+    };
 
     PufferfishImageChangeEvent.prototype.element = null;
     PufferfishImageChangeEvent.prototype.newImageSrc = null;
@@ -13,10 +13,11 @@
 
     PufferfishImageChangeEvent.prototype.preventDefault = function(){
         this.isDefaultPrevented = true;
-    }
+    };
 
     var defaults = {
-        'onChange': function(element, newImageSrc, oldImageSrc){}
+        'onChange': function(element, newImageSrc, oldImageSrc){},
+        'afterChange': function(element, newImageSrc, oldImageSrc){}
     };
 
     $.pufferfish = (function(){
@@ -141,6 +142,7 @@
                         img.attr(watchedImage.srcAttr, newImageSrc);
                     }
 
+                    settings.afterChange(event);
                 }
             
             });

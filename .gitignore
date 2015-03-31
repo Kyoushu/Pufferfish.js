@@ -5,3 +5,5 @@
 /build
 /dist
 /dev
+/tests/vendor
+/node_modules

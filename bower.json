@@ -1,6 +1,5 @@
 {
   "name": "Pufferfish.js",
-  "version": "0.0.4",
   "homepage": "https://github.com/Kyoushu/Pufferfish.js",
   "authors": [
     "Kyoushu <kyoushu@gmail.com>"
@@ -14,7 +13,10 @@
   "dependencies": {
     "jquery": "~2.0.0"
   },
-  "license": "GPL v2",
+  "devDependencies": {
+    "qunit": "~1.17.1"
+  },
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",

@@ -1,0 +1,40 @@
+.container{
+  width: 800px;
+  margin: 0 auto 0 auto;
+  background-color: #eee;
+}
+
+.row{
+  width: 100%;
+  *zoom: 1;
+  clear: both;
+}
+
+.row:before,
+.row:after {
+  content: " ";
+  display: table;
+}
+
+.row:after {
+  clear: both;
+}
+
+.column-full{
+  width: 100%;
+}
+
+.column-half{
+  float: left;
+  width: 50%;
+}
+
+.column-third{
+  float: left;
+  width: 33.333%;
+}
+
+img{
+  width: 100%;
+  display: block;
+}
