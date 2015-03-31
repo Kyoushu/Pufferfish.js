@@ -52,7 +52,7 @@ Force Pufferfish to re-calculate image sources using current container dimension
         $(document).pufferfish({
             // Settings are optional
             'onChange': function(event){
-
+                // Runs before the src attribute is changed
                 if(event.element.is('.responsive-background')){
                     event.preventDefault();
                     event.element.css({
@@ -60,6 +60,9 @@ Force Pufferfish to re-calculate image sources using current container dimension
                     })
                 }
 
+            },
+            'afterChange': function(event){
+                // Runs after the src attribute has been changed
             }
         })
     </script>
