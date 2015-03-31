@@ -1,5 +1,7 @@
 # Pufferfish.js
 
+[![Build Status](https://travis-ci.org/Kyoushu/Pufferfish.js.svg?branch=master)](https://travis-ci.org/Kyoushu/Pufferfish.js)
+
 Loads images based on the amount of space available in the image's containing element.
 
 This is still very much a proof of concept, so don't use it for anything important.
