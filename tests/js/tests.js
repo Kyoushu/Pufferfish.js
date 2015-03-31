@@ -151,4 +151,6 @@ $(function(){
 
     });
 
+    QUnit.start();
+
 });

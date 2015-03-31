@@ -2,6 +2,10 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        qunit: {
+            files: ['tests/index.html']
+        },
+
         watch: {
 
             options: {
@@ -59,8 +63,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
 
     grunt.registerTask('server', ['express', 'open', 'watch']);
     grunt.registerTask('build', ['copy']);
+    grunt.registerTask('test', ['build', 'express', 'qunit']);
     grunt.registerTask('default', ['build','server']);
 };

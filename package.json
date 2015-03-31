@@ -7,6 +7,7 @@
     "grunt-contrib-concat": "^0.4.0",
     "grunt-express": "^1.4.0",
     "grunt-open": "^0.2.3",
-    "grunt-shell": "^0.7.0"
+    "grunt-shell": "^0.7.0",
+    "grunt-contrib-qunit": "^0.5.2"
   }
 }
