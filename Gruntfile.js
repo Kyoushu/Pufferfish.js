@@ -189,7 +189,8 @@ module.exports = function(grunt) {
                     concurrency: 3,
                     testname: 'Pufferfish.js',
                     tags: ['master'],
-                    browsers: browsers
+                    browsers: browsers,
+                    "public": "public"
                 }
             }
         },
