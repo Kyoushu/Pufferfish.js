@@ -12,6 +12,6 @@
     "grunt-saucelabs": "^8.6"
   },
   "scripts": {
-    "test": "grunt test --verbose"
+    "test": "grunt test --verbose --force"
   }
 }
