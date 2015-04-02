@@ -37,7 +37,7 @@ $(function(){
     // QUnit
 
     var log = [];
-    var testName = 'Pufferfish.js';
+    var testName;
 
     QUnit.done(function (test_results) {
         var tests = [];
