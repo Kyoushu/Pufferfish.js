@@ -101,6 +101,7 @@
             watchedImages.forEach(function(watchedImage){
                 
                 var img = watchedImage.img;
+
                 var sizeDefinitions = watchedImage.sizeDefinitions;
                 var container = img.parent();
                 var availableWidth = container.innerWidth();
@@ -138,7 +139,7 @@
                     var event = new PufferfishImageChangeEvent(img, newImageSrc, oldImageSrc);
                     settings.onChange(event);
 
-                    if(!event.isDefaultPrevented){
+                    if(!event.isDefaultPrevented && img.is(':visible')){
                         img.attr(watchedImage.srcAttr, newImageSrc);
                     }
 

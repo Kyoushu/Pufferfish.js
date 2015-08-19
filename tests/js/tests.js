@@ -182,6 +182,21 @@ $(function(){
 
     });
 
+    QUnit.test('not-visible', function(assert){
+
+        var container = $('#test-not-visible');
+        var img = container.find('img');
+        var done = assert.async();
+
+        container.pufferfish({
+            'afterChange': function(event){
+                assert.equal(undefined, event.element.attr('src'), 'hidden image should have no src');
+                done();
+            }
+        });
+
+    });
+
     QUnit.start();
 
 });
