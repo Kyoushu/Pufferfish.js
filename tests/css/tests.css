@@ -42,3 +42,7 @@ img{
 .hidden{
   display: none;
 }
+
+#test-visible-inline img{
+  width: auto;
+}

@@ -139,7 +139,7 @@
                     var event = new PufferfishImageChangeEvent(img, newImageSrc, oldImageSrc);
                     settings.onChange(event);
 
-                    if(!event.isDefaultPrevented && img.is(':visible')){
+                    if(!event.isDefaultPrevented && elementIsVisible(img)){
                         img.attr(watchedImage.srcAttr, newImageSrc);
                     }
 
@@ -148,6 +148,13 @@
             
             });
             
+        }
+
+        function elementIsVisible(element){
+            if(element[0] === window || element[0] === document) return true;
+
+            if(element.css('display') === 'none') return false;
+            else return elementIsVisible(element.parent());
         }
         
         function bindUnwatched(context){

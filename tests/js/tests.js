@@ -197,6 +197,21 @@ $(function(){
 
     });
 
+    QUnit.test('visible-inline', function(assert){
+
+        var container = $('#test-visible-inline');
+        var img = container.find('img');
+        var done = assert.async();
+
+        container.pufferfish({
+            'afterChange': function(event){
+                assert.notEqual(undefined, event.element.attr('src'), 'inline image should have src');
+                done();
+            }
+        });
+
+    });
+
     QUnit.start();
 
 });
