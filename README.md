@@ -4,9 +4,6 @@
 
 A responsive image loader which uses the size of an image's containing element to determine which image should be loaded.
  
-The rationale behind the library is to simplify the process of loading images in responsive grids. The rules for loading
-images do not need to be changed, even after drastically changing the layout of a page.
-
 ## Public Methods
 
 ### $.pufferfish.init(context, settings)
@@ -73,29 +70,29 @@ Settings can also be passed
         }
     });
 
-The data-pufferfish attribute contains the definitions of images to be loaded based on the width of the containing element. The first matching definition is used.
+The data-pufferfish attribute contains definitions of images to be de displayed for a range of container widths. The first matching definition is always used.
 
 A single definition uses the following syntax
 
     [image/url/goes/here.jpg, (min-width: 100, max-width: 200)]
     
-You can use the dimension constraints min-width and max-width. At least one or both must be used in each definition.
+You can use the dimension constraints "min-width" and "max-width" to define break points. One or both of these must be used in each definition.
     
-Multiple definitions are comma separated
+Multiple definitions are separated with commas
 
     [image1.jpg, (min-width: 100, max-width: 199)], [image2.jpg, (min-width: 200)]
 
-When used in an <img> element, it looks like this.
+When used with an <img> element, it looks like this.
 
     <img data-pufferfish="[http://placehold.it/640x480, (max-width: 640)], [http://placehold.it/1200x500, (min-width: 641)]" />
     
 The image loader can be used to change different element attributes by using data-pufferfish-src-attr.
 
-In the following example, the poster attribute is changed in a <video> element instead of the src attribute.
+In the following example, the image URL is applied to the poster attribute in a <video> element.
     
     <video src="video.mp4" data-pufferfish-src-attr="poster" data-pufferfish="[image1.jpg, (max-width: 640)], [image2.jpg, (min-width: 641)]" />
     
-You can also override the default behaviour of Pufferfish by using the onChange callback.
+You can also override the default behaviour of Pufferfish by using the onChange callback. For example, you could have elements with the class responsive-background change their background images.
 
     <div class="responsive-background" data-pufferfish="[image1.jpg, (max-width: 640)], [image2.jpg, (min-width: 641)]">
         <h2>Title</h2>
