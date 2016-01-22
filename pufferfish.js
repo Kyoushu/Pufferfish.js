@@ -153,8 +153,14 @@
         function elementIsVisible(element){
             if(element[0] === window || element[0] === document) return true;
 
-            if(element.css('display') === 'none') return false;
-            else return elementIsVisible(element.parent());
+            if(element.css('display') === 'none'){
+                return false;
+            }
+            else{
+                var parent = element.parent();
+                if(parent.length === 0) return false;
+                return elementIsVisible(parent);
+            }
         }
         
         function bindUnwatched(context){
