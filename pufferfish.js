@@ -91,7 +91,8 @@
                 'img': img,
                 'sizeDefinitions': sizeDefinitions,
                 'srcAttr': srcAttr,
-                'currentSrc': null
+                'currentSrc': null,
+                'visible': null
             });
         
         }
@@ -128,8 +129,10 @@
                     return false;
                     
                 });
+
+                var visible = elementIsVisible(img);
                 
-                if(selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src){
+                if((selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src) || (visible && watchedImage.visible === null)){
 
                     var oldImageSrc = watchedImage.currentSrc;
                     var newImageSrc = selectedSizeDefinition.src;
@@ -139,9 +142,11 @@
                     var event = new PufferfishImageChangeEvent(img, newImageSrc, oldImageSrc);
                     settings.onChange(event);
 
-                    if(!event.isDefaultPrevented && elementIsVisible(img)){
+                    if(!event.isDefaultPrevented && visible){
                         img.attr(watchedImage.srcAttr, newImageSrc);
                     }
+
+                    watchedImage.visible = visible;
 
                     settings.afterChange(event);
                 }
