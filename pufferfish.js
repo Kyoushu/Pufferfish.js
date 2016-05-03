@@ -132,7 +132,10 @@
 
                 var visible = elementIsVisible(img);
                 
-                if((selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src) || (visible && watchedImage.visible === null)){
+                if(
+                    (selectedSizeDefinition !== null && watchedImage.currentSrc !== selectedSizeDefinition.src) ||
+                    (visible !== watchedImage.visible && visible == true)
+                ){
 
                     var oldImageSrc = watchedImage.currentSrc;
                     var newImageSrc = selectedSizeDefinition.src;
